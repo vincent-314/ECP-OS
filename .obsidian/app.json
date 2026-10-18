@@ -1,0 +1,7 @@
+{
+  "attachmentFolderPath": "09-attachments",
+  "alwaysUpdateLinks": true,
+  "userIgnoreFilters": [
+    "00-system/templates/"
+  ]
+}

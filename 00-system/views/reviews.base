@@ -1,0 +1,56 @@
+filters:
+  and:
+    - file.inFolder("05-reviews")
+    - type == "review"
+properties:
+  file.name:
+    displayName: Review
+  cycle:
+    displayName: Period
+  minutes:
+    displayName: Minutes
+  confidence_avg:
+    displayName: Confidence
+  fun_avg:
+    displayName: Fun
+  score:
+    displayName: Score
+views:
+  - type: table
+    name: Weekly
+    filters:
+      and:
+        - period == "weekly"
+    order:
+      - file.name
+      - minutes
+      - confidence_avg
+      - fun_avg
+    sort:
+      - property: cycle
+        direction: DESC
+  - type: table
+    name: Monthly
+    filters:
+      and:
+        - period == "monthly"
+    order:
+      - file.name
+      - minutes
+      - score
+      - confidence_avg
+      - fun_avg
+    sort:
+      - property: cycle
+        direction: DESC
+  - type: table
+    name: Quarterly
+    filters:
+      and:
+        - period == "quarterly"
+    order:
+      - file.name
+      - score
+    sort:
+      - property: cycle
+        direction: DESC

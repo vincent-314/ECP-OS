@@ -1,0 +1,99 @@
+filters:
+  and:
+    - file.inFolder("03-tasks")
+    - type == "task"
+properties:
+  file.name:
+    displayName: Task
+  done:
+    displayName: Done
+  due:
+    displayName: Due
+  objective:
+    displayName: Objective
+  kr:
+    displayName: KR
+  task_type:
+    displayName: Type
+  effort_min:
+    displayName: Minutes
+  week:
+    displayName: Week
+views:
+  - type: table
+    name: Next 7 days
+    filters:
+      and:
+        - done == false
+        - due <= today() + "7d"
+    order:
+      - done
+      - file.name
+      - due
+      - objective
+      - task_type
+      - effort_min
+    sort:
+      - property: done
+        direction: ASC
+      - property: due
+        direction: ASC
+  - type: table
+    name: All open
+    filters:
+      and:
+        - done == false
+    order:
+      - done
+      - file.name
+      - due
+      - objective
+      - kr
+      - task_type
+    sort:
+      - property: due
+        direction: ASC
+  - type: table
+    name: By objective
+    filters:
+      and:
+        - done == false
+    groupBy:
+      property: objective
+      direction: ASC
+    order:
+      - done
+      - file.name
+      - due
+      - kr
+      - task_type
+    sort:
+      - property: due
+        direction: ASC
+  - type: table
+    name: Overdue
+    filters:
+      and:
+        - done == false
+        - due < today()
+    order:
+      - done
+      - file.name
+      - due
+      - objective
+    sort:
+      - property: due
+        direction: ASC
+  - type: table
+    name: Done
+    filters:
+      and:
+        - done == true
+    order:
+      - file.name
+      - due
+      - objective
+      - week
+    sort:
+      - property: due
+        direction: DESC

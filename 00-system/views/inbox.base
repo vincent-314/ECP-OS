@@ -1,0 +1,73 @@
+filters:
+  and:
+    - file.inFolder("07-inbox")
+    - type == "source"
+properties:
+  file.name:
+    displayName: Source
+  topic:
+    displayName: Topic
+  media_type:
+    displayName: Type
+  url:
+    displayName: Link
+  level:
+    displayName: Level
+  status:
+    displayName: Status
+  minutes:
+    displayName: Minutes
+  tags:
+    displayName: Tags
+  created:
+    displayName: Added
+views:
+  - type: table
+    name: New
+    filters:
+      and:
+        - status == "new"
+    order:
+      - file.name
+      - topic
+      - media_type
+      - level
+      - url
+      - created
+    sort:
+      - property: created
+        direction: DESC
+  - type: table
+    name: All sources
+    order:
+      - file.name
+      - topic
+      - media_type
+      - level
+      - status
+      - tags
+      - created
+    sort:
+      - property: created
+        direction: DESC
+  - type: table
+    name: By type
+    groupBy:
+      property: media_type
+      direction: ASC
+    order:
+      - file.name
+      - topic
+      - level
+      - status
+  - type: table
+    name: Easy input
+    filters:
+      and:
+        - level == "easy"
+        - status != "done"
+    order:
+      - file.name
+      - topic
+      - media_type
+      - url

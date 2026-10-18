@@ -1,0 +1,98 @@
+filters:
+  and:
+    - file.inFolder("02-okr")
+formulas:
+  progress: if(target > 0, (current / target * 100).round(), 0)
+properties:
+  code:
+    displayName: Code
+  title:
+    displayName: Title
+  area:
+    displayName: Area
+  cycle:
+    displayName: Month
+  month:
+    displayName: Plan month
+  kind:
+    displayName: Kind
+  current:
+    displayName: Now
+  target:
+    displayName: Target
+  unit:
+    displayName: Unit
+  formula.progress:
+    displayName: Progress %
+  due:
+    displayName: Due
+  objective:
+    displayName: Objective
+  score:
+    displayName: Score
+  status:
+    displayName: Status
+views:
+  - type: table
+    name: Active objectives
+    filters:
+      and:
+        - type == "objective"
+        - status == "active"
+    order:
+      - code
+      - title
+      - area
+      - cycle
+      - month
+    sort:
+      - property: code
+        direction: ASC
+  - type: table
+    name: Active key results
+    filters:
+      and:
+        - type == "key-result"
+        - status == "active"
+    order:
+      - code
+      - title
+      - kind
+      - current
+      - target
+      - unit
+      - formula.progress
+      - due
+    sort:
+      - property: code
+        direction: ASC
+  - type: table
+    name: All objectives
+    filters:
+      and:
+        - type == "objective"
+    order:
+      - cycle
+      - code
+      - title
+      - status
+      - score
+    sort:
+      - property: cycle
+        direction: DESC
+  - type: table
+    name: All key results
+    filters:
+      and:
+        - type == "key-result"
+    order:
+      - cycle
+      - code
+      - title
+      - kind
+      - current
+      - target
+      - score
+    sort:
+      - property: cycle
+        direction: DESC

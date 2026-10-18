@@ -1,0 +1,78 @@
+filters:
+  and:
+    - file.inFolder("08-output")
+    - type == "output"
+properties:
+  file.name:
+    displayName: Output
+  date:
+    displayName: Date
+  output_type:
+    displayName: Type
+  scene:
+    displayName: Scene
+  feedback_by:
+    displayName: Feedback by
+  error_types:
+    displayName: Errors
+  rounds:
+    displayName: Rounds
+  accuracy:
+    displayName: Accuracy
+  confidence:
+    displayName: Confidence
+  fun:
+    displayName: Fun
+views:
+  - type: table
+    name: Recent
+    order:
+      - file.name
+      - date
+      - output_type
+      - scene
+      - error_types
+      - accuracy
+      - confidence
+    sort:
+      - property: date
+        direction: DESC
+    limit: 30
+  - type: table
+    name: Needs feedback
+    filters:
+      and:
+        - "!feedback_by"
+    order:
+      - file.name
+      - date
+      - output_type
+    sort:
+      - property: date
+        direction: ASC
+  - type: table
+    name: Pronunciation issues
+    filters:
+      and:
+        - error_types.containsAny("tone", "aspiration", "retroflex", "initial", "final")
+    order:
+      - file.name
+      - date
+      - error_types
+      - feedback_by
+    sort:
+      - property: date
+        direction: DESC
+  - type: table
+    name: Monthly fixed recordings
+    filters:
+      and:
+        - fixed_task == true
+    order:
+      - file.name
+      - date
+      - accuracy
+      - confidence
+    sort:
+      - property: date
+        direction: ASC

@@ -1,0 +1,71 @@
+filters:
+  and:
+    - file.inFolder("06-library/scenes")
+    - type == "scene"
+properties:
+  title_zh:
+    displayName: 场景
+  title_en:
+    displayName: Scene
+  category:
+    displayName: Category
+  status:
+    displayName: Status
+  practice_count:
+    displayName: Practices
+  best_rounds:
+    displayName: Best rounds
+  accuracy:
+    displayName: Accuracy
+  last_practiced:
+    displayName: Last practiced
+  next_review:
+    displayName: Next practice
+views:
+  - type: table
+    name: All scenes
+    groupBy:
+      property: status
+      direction: ASC
+    order:
+      - title_zh
+      - title_en
+      - category
+      - practice_count
+      - best_rounds
+      - accuracy
+      - last_practiced
+  - type: table
+    name: Due for practice
+    filters:
+      and:
+        - next_review <= today()
+    order:
+      - title_zh
+      - title_en
+      - status
+      - next_review
+    sort:
+      - property: next_review
+        direction: ASC
+  - type: table
+    name: Learning
+    filters:
+      and:
+        - status == "learning"
+    order:
+      - title_zh
+      - title_en
+      - practice_count
+      - best_rounds
+      - accuracy
+  - type: table
+    name: Passed
+    filters:
+      and:
+        - status == "passed"
+    order:
+      - title_zh
+      - title_en
+      - accuracy
+      - passed_on

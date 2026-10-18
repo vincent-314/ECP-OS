@@ -1,0 +1,78 @@
+filters:
+  and:
+    - file.inFolder("06-library/words")
+    - type == "word"
+properties:
+  file.name:
+    displayName: Word
+  pinyin:
+    displayName: Pinyin
+  meaning:
+    displayName: Meaning
+  recognize:
+    displayName: Recognize
+  pronounce_ok:
+    displayName: Pronunciation
+  can_use:
+    displayName: Can use
+  handwrite:
+    displayName: Handwrite
+  box:
+    displayName: Box
+  next_review:
+    displayName: Next review
+  scenes:
+    displayName: Scenes
+  hsk:
+    displayName: HSK
+views:
+  - type: table
+    name: Due today
+    filters:
+      and:
+        - next_review <= today()
+    order:
+      - file.name
+      - pinyin
+      - meaning
+      - box
+      - next_review
+    sort:
+      - property: box
+        direction: ASC
+  - type: table
+    name: All words
+    order:
+      - file.name
+      - pinyin
+      - meaning
+      - recognize
+      - pronounce_ok
+      - can_use
+      - box
+      - scenes
+    sort:
+      - property: created
+        direction: DESC
+  - type: table
+    name: Needs pronunciation check
+    filters:
+      and:
+        - recognize == true
+        - pronounce_ok == false
+    order:
+      - file.name
+      - pinyin
+      - meaning
+  - type: table
+    name: Mastered
+    filters:
+      and:
+        - recognize == true
+        - pronounce_ok == true
+        - can_use == true
+    order:
+      - file.name
+      - pinyin
+      - meaning
+      - hsk

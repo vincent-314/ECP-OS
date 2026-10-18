@@ -1,0 +1,5 @@
+{
+  "folder": "04-daily",
+  "format": "YYYY-MM-DD",
+  "template": "00-system/templates/daily"
+}

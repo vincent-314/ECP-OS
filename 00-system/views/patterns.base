@@ -1,0 +1,52 @@
+filters:
+  and:
+    - file.inFolder("06-library/patterns")
+    - type == "pattern"
+properties:
+  file.name:
+    displayName: Pattern
+  pinyin:
+    displayName: Pinyin
+  meaning:
+    displayName: Meaning
+  function:
+    displayName: Use it to
+  example:
+    displayName: Example
+  recognize:
+    displayName: Recognize
+  pronounce_ok:
+    displayName: Pronunciation
+  can_use:
+    displayName: Can use
+  box:
+    displayName: Box
+  next_review:
+    displayName: Next review
+views:
+  - type: table
+    name: Due today
+    filters:
+      and:
+        - next_review <= today()
+    order:
+      - file.name
+      - meaning
+      - example
+      - box
+    sort:
+      - property: box
+        direction: ASC
+  - type: table
+    name: All patterns
+    order:
+      - file.name
+      - pinyin
+      - meaning
+      - function
+      - example
+      - can_use
+      - box
+    sort:
+      - property: created
+        direction: DESC

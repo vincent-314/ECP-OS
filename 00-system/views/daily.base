@@ -1,0 +1,41 @@
+filters:
+  and:
+    - file.inFolder("04-daily")
+    - type == "daily"
+properties:
+  file.name:
+    displayName: Day
+  minutes:
+    displayName: Minutes
+  cards_reviewed:
+    displayName: Cards
+  cards_correct:
+    displayName: Correct
+  input_min:
+    displayName: Input min
+  output_count:
+    displayName: Outputs
+  confidence:
+    displayName: Confidence
+  fun:
+    displayName: Fun
+views:
+  - type: table
+    name: Study log
+    order:
+      - file.name
+      - minutes
+      - cards_reviewed
+      - cards_correct
+      - input_min
+      - output_count
+      - confidence
+      - fun
+    sort:
+      - property: date
+        direction: DESC
+    summaries:
+      minutes: Sum
+      input_min: Sum
+      confidence: Average
+      fun: Average
